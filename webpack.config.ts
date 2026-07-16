@@ -56,7 +56,6 @@ const cssLoader = {
 const sassLoader = {
 	loader: 'sass-loader',
 	options: {
-		javascriptEnabled: true,
 		sourceMap: true
 	}
 };
@@ -318,7 +317,6 @@ const productionConfig: webpack.Configuration = {
 			]
 		}),
 		new webpack.optimize.ModuleConcatenationPlugin(),
-		new webpack.optimize.OccurrenceOrderPlugin(true),
 		new webpack.optimize.AggressiveMergingPlugin(),
 		new OptimizeCssAssetsPlugin(),
 		...Object.keys(entries).map((chunk) => {
