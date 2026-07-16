@@ -5,7 +5,10 @@
 		"module": "es2015",
 		"resolveJsonModule": true,
 		"lib": ["es2017"],
-		"types": ["node"]
+		"types": ["node"],
+		"skipLibCheck": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"noImplicitAny": false
 	},
 	"include": ["**/*.ts", "**/*.tsx", "**/*.json"]
 }

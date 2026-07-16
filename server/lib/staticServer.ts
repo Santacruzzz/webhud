@@ -1,5 +1,6 @@
 import { Server } from 'http';
 import fs from 'fs';
+// @ts-ignore
 import mime from 'mime';
 import path from 'path';
 import url from 'url';

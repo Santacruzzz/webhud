@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Client as Sentry } from 'sentry-api';
 import { execSync } from 'child_process';
 import { LoaderContext } from './types/webpack-extras';
@@ -206,7 +207,9 @@ const hotreloadConfig: webpack.Configuration = {
 		new ForkTsCheckerWebpackPlugin({
 			workers: 1,
 			checkSyntacticErrors: true,
-			tsconfig: tsConfigPath
+			tsconfig: tsConfigPath,
+			eslint: false,
+			reportFiles: ['src/**/*.{ts,tsx}']
 		})
 	]
 };

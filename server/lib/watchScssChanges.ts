@@ -1,7 +1,7 @@
 import chokidar from 'chokidar';
 import DtsCreator from 'typed-css-modules';
 import fs from 'fs';
-import sass from 'node-sass';
+import * as sass from 'sass';
 import WebSocket from 'ws';
 
 const dtsCreator = new DtsCreator();
@@ -24,26 +24,23 @@ export function generateScssTypingsAndBroadcastChange(port: number) {
 
 			const sassContent = fs.readFileSync(path).toString();
 
-			sass.render(
-				{
+			try {
+				const result = sass.renderSync({
 					data: sassContent
-				},
-				(err, result) => {
-					if (err) {
-						return console.error(err);
-					}
+				});
 
-					// Strip urls since we don't do file resolving with
-					// this quick SCSS changes
-					const finalCss = result.css
-						.toString()
-						.replace(/url\(/g, '_url(');
+				// Strip urls since we don't do file resolving with
+				// this quick SCSS changes
+				const finalCss = result.css
+					.toString()
+					.replace(/url\(/g, '_url(');
 
-					wss.clients.forEach((client) => {
-						client.send(finalCss);
-					});
-				}
-			);
+				wss.clients.forEach((client) => {
+					client.send(finalCss);
+				});
+			} catch (err) {
+				console.error(err);
+			}
 
 			const typings = await dtsCreator.create(path, sassContent);
 			const output = typings.formatted;

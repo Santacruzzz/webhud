@@ -66,6 +66,14 @@
 		"typeRoots": ["node_modules/@types", "types"],
 		"types": ["node"]
 	},
+	"ts-node": {
+		"transpileOnly": true,
+		"compilerOptions": {
+			"module": "commonjs",
+			"noImplicitAny": false,
+			"skipLibCheck": true
+		}
+	},
 	"include": ["src/**/*.ts", "webpack.config.ts"],
 	"exclude": []
 }

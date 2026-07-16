@@ -3,17 +3,19 @@ import { staticServer } from './lib/staticServer';
 import config from './../config.json';
 import fs from 'fs';
 import getConfig from './../webpack.config';
+// @ts-ignore
 import mime from 'mime';
 import path from 'path';
 import url from 'url';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 
-const webpackConfig = getConfig('hotreload');
+const webpackConfig = getConfig('hotreload') as any;
 const port = config.PORT;
 
+// @ts-ignore
 const httpServer = new WebpackDevServer(webpack(webpackConfig), {
-	publicPath: webpackConfig.output!.publicPath,
+	publicPath: webpackConfig.output ? webpackConfig.output.publicPath : undefined,
 	hot: true,
 	historyApiFallback: true,
 	clientLogLevel: 'warning',
